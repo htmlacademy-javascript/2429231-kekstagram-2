@@ -13,8 +13,7 @@ checkStringLength();
 // Задача 2. Проверяет, является ли строка полиндромом
 
 function isPalindrome (string = '') {
-  string = string.replaceAll(' ', '');
-  string = string.toLowerCase();
+  string = string.replaceAll(' ', '').toLowerCase();
   let reversedLine = '';
 
   for (let i = string.length - 1; i >= 0; i--) {
@@ -46,7 +45,7 @@ extractNumber();
 
 //ДЗ module5-task2
 
-function isMeetingWithinWorkday(workStart, workEnd, meetingStart, duration) {
+const isMeetingWithinWorkday = (workStart, workEnd, meetingStart, duration) => {
   //Преобразует строку времени (чч:мм) в минуты от начала суток
   const toMinutes = (time) => {
     const [hours, minutes] = time.split(':').map(Number);
@@ -60,7 +59,7 @@ function isMeetingWithinWorkday(workStart, workEnd, meetingStart, duration) {
 
   //Проверяет, что встреча полностью внутри рабочего дня
   return meetingStartMinutes >= workStartMinutes && meetingEndMinutes <= workEndMinutes;
-}
+};
 
 isMeetingWithinWorkday('08:00', '17:30', '14:00', 90); // true
 isMeetingWithinWorkday('8:0', '10:0', '8:0', 120); // true

@@ -45,5 +45,5 @@ const createPhotoDescription = () => ({
 
 //Функция создания массива из 25 объектов
 const getArrayPhotos = () => Array.from({ length: PHOTO_ARRAY_SIZE }, createPhotoDescription);
-
-export { getArrayPhotos };
+const photos = getArrayPhotos();
+export { photos };

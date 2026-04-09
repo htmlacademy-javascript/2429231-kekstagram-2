@@ -9,7 +9,7 @@ const getRandomInteger = (a, b) => {
 
 
 //Функция получения случайного уникального ID
-const getRandomUniqieId = (min, max) => {
+const getRandomUniqueId = (min, max) => {
   const previousValues = [];
 
   return function () {
@@ -30,6 +30,6 @@ const getRandomArrayElement = (elements) => elements[getRandomInteger(0, element
 
 export {
   getRandomInteger,
-  getRandomUniqieId,
+  getRandomUniqueId,
   getRandomArrayElement,
 };

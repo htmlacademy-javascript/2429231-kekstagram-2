@@ -38,17 +38,13 @@ const stopEscapePropagation = (evt) => {
   }
 };
 
-const closeUploadPhotoForm = () => {
-  uploadOverlayNode.classList.add('hidden');
-  bodyNode.classList.remove('modal-open');
-  document.removeEventListener('keydown', onDocumentKeydown);
-  resetUploadPhotoForm();
-};
-
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    closeUploadPhotoForm();
+    uploadOverlayNode.classList.add('hidden');
+    bodyNode.classList.remove('modal-open');
+    document.removeEventListener('keydown', onDocumentKeydown);
+    resetUploadPhotoForm();
   }
 };
 
@@ -56,6 +52,13 @@ const openUploadPhotoForm = () => {
   uploadOverlayNode.classList.remove('hidden');
   bodyNode.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
+};
+
+const closeUploadPhotoForm = () => {
+  uploadOverlayNode.classList.add('hidden');
+  bodyNode.classList.remove('modal-open');
+  document.removeEventListener('keydown', onDocumentKeydown);
+  resetUploadPhotoForm();
 };
 
 const onUploadFileControlChange = () => {

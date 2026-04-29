@@ -5,6 +5,8 @@ import {
   hasUniqueHashtags
 } from './check-hashtag-validity.js';
 
+import { resetImageEditor } from './image-editor.js';
+
 const MAX_COMMENT_LENGTH = 140;
 
 const bodyNode = document.body;
@@ -30,6 +32,7 @@ const resetUploadPhotoForm = () => {
   uploadFormNode.reset();
   uploadFileControl.value = '';
   pristine.reset();
+  resetImageEditor();
 };
 
 const stopEscapePropagation = (evt) => {
@@ -78,6 +81,12 @@ const onUploadFormSubmit = (evt) => {
 
 pristine.addValidator(
   hashtagsInputNode,
+  hasValidHashtagFormat,
+  'Хэштег должен начинаться с # и содержать только буквы и цифры'
+);
+
+pristine.addValidator(
+  hashtagsInputNode,
   hasValidHashtagCount,
   'Нельзя указать больше пяти хэштегов'
 );
@@ -86,12 +95,6 @@ pristine.addValidator(
   hashtagsInputNode,
   hasValidHashtagLength,
   'Максимальная длина одного хэштега — 20 символов'
-);
-
-pristine.addValidator(
-  hashtagsInputNode,
-  hasValidHashtagFormat,
-  'Хэштег должен начинаться с # и содержать только буквы и цифры'
 );
 
 pristine.addValidator(

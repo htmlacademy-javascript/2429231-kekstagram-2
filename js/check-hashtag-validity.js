@@ -15,7 +15,11 @@ const hasValidHashtagLength = (value) =>
   normalizeHashtags(value).every((hashtag) => hashtag.length <= MAX_HASHTAG_LENGTH);
 
 const hasValidHashtagFormat = (value) =>
-  normalizeHashtags(value).every((hashtag) => HASHTAG_REGEXP.test(hashtag));
+  normalizeHashtags(value).every((hashtag) =>
+    hashtag.startsWith('#') &&
+    hashtag.length > 1 &&
+    HASHTAG_REGEXP.test(hashtag)
+  );
 
 const hasUniqueHashtags = (value) => {
   const hashtags = normalizeHashtags(value);

@@ -6,8 +6,14 @@ import {
 } from './check-hashtag-validity.js';
 
 import { resetImageEditor } from './image-editor.js';
+import { sendData } from './api.js';
+import { showSuccessMessage, showErrorMessage } from './messages.js';
 
 const MAX_COMMENT_LENGTH = 140;
+const SubmitButtonText = {
+  IDLE: 'Опубликовать',
+  SENDING: 'Публикую...',
+};
 
 const bodyNode = document.body;
 const uploadFormNode = document.querySelector('.img-upload__form');
@@ -16,6 +22,7 @@ const uploadOverlayNode = uploadFormNode.querySelector('.img-upload__overlay');
 const uploadCancelButtonNode = uploadFormNode.querySelector('#upload-cancel');
 const hashtagsInputNode = uploadFormNode.querySelector('.text__hashtags');
 const descriptionInputNode = uploadFormNode.querySelector('.text__description');
+const submitButtonNode = uploadFormNode.querySelector('.img-upload__submit');
 
 const pristine = new Pristine(uploadFormNode, {
   classTo: 'img-upload__field-wrapper',
@@ -27,6 +34,13 @@ const pristine = new Pristine(uploadFormNode, {
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const hasValidCommentLength = (value) => value.length <= MAX_COMMENT_LENGTH;
+
+const toggleSubmitButton = (isDisabled) => {
+  submitButtonNode.disabled = isDisabled;
+  submitButtonNode.textContent = isDisabled
+    ? SubmitButtonText.SENDING
+    : SubmitButtonText.IDLE;
+};
 
 const resetUploadPhotoForm = () => {
   uploadFormNode.reset();
@@ -74,9 +88,30 @@ const onUploadCancelButtonClick = (evt) => {
 };
 
 const onUploadFormSubmit = (evt) => {
-  if (!pristine.validate()) {
-    evt.preventDefault();
+  evt.preventDefault();
+
+  const isValid = pristine.validate();
+
+  if (isValid) {
+    toggleSubmitButton(true);
+
+    sendData(new FormData(evt.target))
+      .then(() => {
+        closeUploadPhotoForm();
+        showSuccessMessage();
+      })
+      .catch(() => {
+        showErrorMessage();
+      })
+      .finally(() => {
+        toggleSubmitButton(false);
+      });
   }
+};
+
+const onUploadFormReset = (evt) => {
+  evt.preventDefault();
+  closeUploadPhotoForm();
 };
 
 pristine.addValidator(
@@ -113,6 +148,7 @@ const initUploadPhotoForm = () => {
   uploadFileControl.addEventListener('change', onUploadFileControlChange);
   uploadCancelButtonNode.addEventListener('click', onUploadCancelButtonClick);
   uploadFormNode.addEventListener('submit', onUploadFormSubmit);
+  uploadFormNode.addEventListener('reset', onUploadFormReset);
   hashtagsInputNode.addEventListener('keydown', stopEscapePropagation);
   descriptionInputNode.addEventListener('keydown', stopEscapePropagation);
 };

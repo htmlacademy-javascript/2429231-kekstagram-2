@@ -1,5 +1,12 @@
-import { photos } from './create-array-photos.js';
 import { clearComments, renderComments } from './render-comments.js';
+
+// Хранилище для данных фотографий, загруженных с сервера
+let photos = [];
+
+// Устанавливает массив фотографий (вызывается из main.js после загрузки данных)
+const setPhotos = (data) => {
+  photos = data;
+};
 
 const bigPictureNode = document.querySelector('.big-picture');
 const bigPictureImgNode = bigPictureNode.querySelector('.big-picture__img').querySelector('img');
@@ -49,4 +56,4 @@ const openBigPicture = (pictureId) => {
 
 bigPictureCancelNode.addEventListener('click', onBigPictureCancelClick);
 
-export {openBigPicture};
+export { openBigPicture, setPhotos };

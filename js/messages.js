@@ -9,8 +9,9 @@ const errorTemplate = document.querySelector('#error').content.querySelector('.e
 
 // Показывает сообщение об ошибке загрузки данных
 
-const showDataLoadError = () => {
+const showDataLoadError = (message) => {
   const dataErrorElement = dataErrorTemplate.cloneNode(true);
+  dataErrorElement.querySelector('.data-error__title').textContent = message;
   document.body.appendChild(dataErrorElement);
 
   setTimeout(() => {
@@ -18,11 +19,15 @@ const showDataLoadError = () => {
   }, ALERT_SHOW_TIME);
 };
 
-
 // Создает и показывает модальное сообщение (успех или ошибка)
 
-const showMessage = (template, buttonClass) => {
+const showMessage = (template, buttonClass, titleClass, message) => {
   const messageElement = template.cloneNode(true);
+
+  if (message) {
+    messageElement.querySelector(titleClass).textContent = message;
+  }
+
   document.body.appendChild(messageElement);
 
   const closeButton = messageElement.querySelector(buttonClass);
@@ -52,11 +57,11 @@ const showMessage = (template, buttonClass) => {
 };
 
 const showSuccessMessage = () => {
-  showMessage(successTemplate, '.success__button');
+  showMessage(successTemplate, '.success__button', '.success__title');
 };
 
-const showErrorMessage = () => {
-  showMessage(errorTemplate, '.error__button');
+const showErrorMessage = (message) => {
+  showMessage(errorTemplate, '.error__button', '.error__title', message);
 };
 
 export { showDataLoadError, showSuccessMessage, showErrorMessage };

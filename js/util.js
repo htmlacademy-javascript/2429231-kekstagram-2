@@ -1,35 +1,12 @@
+// Функция устранения дребезга (debounce)
 
-//Функция получения случайного числа
-const getRandomInteger = (a, b) => {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
-};
+const debounce = (callback, timeoutDelay = 500) => {
+  let timeoutId;
 
-
-//Функция получения случайного уникального ID
-const getRandomUniqueId = (min, max) => {
-  const previousValues = [];
-
-  return function () {
-    let currentValue = getRandomInteger(min, max);
-    if (previousValues.length >= (max - min + 1)) {
-      return null;
-    }
-    while (previousValues.includes(currentValue)) {
-      currentValue = getRandomInteger(min, max);
-    }
-    previousValues.push(currentValue);
-    return currentValue;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
 };
 
-//Функция получения случайного элемента массива
-const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
-
-export {
-  getRandomInteger,
-  getRandomUniqueId,
-  getRandomArrayElement,
-};
+export { debounce };

@@ -1,4 +1,3 @@
-// import { photos } from './create-array-photos.js';
 import { openBigPicture } from './full-size-picture.js';
 
 const picturesNode = document.querySelector('.pictures');
@@ -26,7 +25,14 @@ const createPicture = ({id, url, description, comments, likes }) => {
   return pictureNode;
 };
 
+const clearThumbnails = () => {
+  const pictures = picturesNode.querySelectorAll('.picture');
+  pictures.forEach((picture) => picture.remove());
+};
+
 const renderThumbnails = (pictures) => {
+  clearThumbnails();
+
   const picturesFragment = document.createDocumentFragment();
 
   pictures.forEach((photo) => {

@@ -34,13 +34,14 @@ const showMessage = (template, buttonClass, titleClass, message) => {
 
   const closeMessage = () => {
     messageElement.remove();
-    document.removeEventListener('keydown', onEscKeydown);
+    document.removeEventListener('keydown', onEscKeydown, true);
     document.removeEventListener('click', onOutsideClick);
   };
 
   function onEscKeydown(evt) {
     if (evt.key === 'Escape') {
       evt.preventDefault();
+      evt.stopPropagation();
       closeMessage();
     }
   }
@@ -52,7 +53,7 @@ const showMessage = (template, buttonClass, titleClass, message) => {
   }
 
   closeButton.addEventListener('click', closeMessage);
-  document.addEventListener('keydown', onEscKeydown);
+  document.addEventListener('keydown', onEscKeydown, true);
   document.addEventListener('click', onOutsideClick);
 };
 

@@ -49,7 +49,6 @@ const clearComments = () => {
   state.currentCount = 0;
   state.comments = [];
   socialCommentsNode.innerHTML = '';
-  commentsCountNode.classList.add('hidden');
   commentsLoaderNode.classList.add('hidden');
   commentsLoaderNode.removeEventListener('click', renderNextComments);
 };

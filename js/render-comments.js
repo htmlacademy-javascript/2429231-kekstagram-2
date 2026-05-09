@@ -64,7 +64,6 @@ const renderComments = (currentPhotoComments) => {
   } else {
     commentsLoaderNode.classList.add('hidden');
   }
-  // commentsLoaderNode.classList.remove('hidden');
 
   commentsLoaderNode.removeEventListener('click', renderNextComments);
   commentsLoaderNode.addEventListener('click', renderNextComments);

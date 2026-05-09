@@ -64,8 +64,6 @@ const resetPreview = () => {
 const resetUploadPhotoForm = () => {
   uploadFormNode.reset();
   uploadFileControl.value = '';
-  // pristine.reset();
-  // resetImageEditor();
   resetFormFields();
   resetPreview();
 };

@@ -17,10 +17,7 @@ const bigPictureCancelNode = bigPictureNode.querySelector('.big-picture__cancel'
 const onEscKeydown = (evt) => {
   if (evt.key === 'Escape') {
     evt.preventDefault();
-    clearComments();
-    bigPictureNode.classList.add('hidden');
-    document.body.classList.remove('modal-open');
-    document.removeEventListener('keydown', onEscKeydown);
+    closeBigPicture();
   }
 };
 

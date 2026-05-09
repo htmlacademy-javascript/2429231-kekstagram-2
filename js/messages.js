@@ -32,29 +32,31 @@ const showMessage = (template, buttonClass, titleClass, message) => {
 
   const closeButton = messageElement.querySelector(buttonClass);
 
-  const closeMessage = () => {
-    messageElement.remove();
-    document.removeEventListener('keydown', onEscKeydown, true);
-    document.removeEventListener('click', onOutsideClick);
-  };
+  const handlers = {};
 
-  function onEscKeydown(evt) {
+  handlers.onEscKeydown = (evt) => {
     if (evt.key === 'Escape') {
       evt.preventDefault();
       evt.stopPropagation();
-      closeMessage();
+      handlers.closeMessage();
     }
-  }
+  };
 
-  function onOutsideClick(evt) {
+  handlers.onOutsideClick = (evt) => {
     if (evt.target === messageElement) {
-      closeMessage();
+      handlers.closeMessage();
     }
-  }
+  };
 
-  closeButton.addEventListener('click', closeMessage);
-  document.addEventListener('keydown', onEscKeydown, true);
-  document.addEventListener('click', onOutsideClick);
+  handlers.closeMessage = () => {
+    messageElement.remove();
+    document.removeEventListener('keydown', handlers.onEscKeydown, true);
+    document.removeEventListener('click', handlers.onOutsideClick);
+  };
+
+  closeButton.addEventListener('click', handlers.closeMessage);
+  document.addEventListener('keydown', handlers.onEscKeydown, true);
+  document.addEventListener('click', handlers.onOutsideClick);
 };
 
 const showSuccessMessage = () => {

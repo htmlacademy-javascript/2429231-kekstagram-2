@@ -14,23 +14,26 @@ const likesCountNode = bigPictureNode.querySelector('.likes-count');
 const commentsCaptionNode = bigPictureNode.querySelector('.social__caption');
 const bigPictureCancelNode = bigPictureNode.querySelector('.big-picture__cancel');
 
-const onEscKeydown = (evt) => {
+const handlers = {};
+
+handlers.onEscKeydown = (evt) => {
   if (evt.key === 'Escape') {
     evt.preventDefault();
-    closeBigPicture();
+    handlers.closeBigPicture();
   }
 };
 
-const closeBigPicture = () => {
+handlers.closeBigPicture = () => {
   clearComments();
   bigPictureNode.classList.add('hidden');
   document.body.classList.remove('modal-open');
-  document.removeEventListener('keydown', onEscKeydown);
+  document.removeEventListener('keydown', handlers.onEscKeydown);
 };
+
 
 const onBigPictureCancelClick = (evt) => {
   evt.preventDefault();
-  closeBigPicture();
+  handlers.closeBigPicture();
 };
 
 const openBigPicture = (pictureId) => {
@@ -48,7 +51,7 @@ const openBigPicture = (pictureId) => {
 
   bigPictureNode.classList.remove('hidden');
   document.body.classList.add('modal-open');
-  document.addEventListener('keydown', onEscKeydown);
+  document.addEventListener('keydown', handlers.onEscKeydown);
 };
 
 bigPictureCancelNode.addEventListener('click', onBigPictureCancelClick);

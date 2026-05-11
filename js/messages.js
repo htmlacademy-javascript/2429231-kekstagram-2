@@ -21,13 +21,8 @@ const showDataLoadError = (message) => {
 
 // Создает и показывает модальное сообщение (успех или ошибка)
 
-const showMessage = (template, buttonClass, titleClass, message) => {
+const showMessage = (template, buttonClass) => {
   const messageElement = template.cloneNode(true);
-
-  if (message) {
-    messageElement.querySelector(titleClass).textContent = message;
-  }
-
   document.body.appendChild(messageElement);
 
   const closeButton = messageElement.querySelector(buttonClass);
@@ -60,11 +55,11 @@ const showMessage = (template, buttonClass, titleClass, message) => {
 };
 
 const showSuccessMessage = () => {
-  showMessage(successTemplate, '.success__button', '.success__title');
+  showMessage(successTemplate, '.success__button');
 };
 
-const showErrorMessage = (message) => {
-  showMessage(errorTemplate, '.error__button', '.error__title', message);
+const showErrorMessage = () => {
+  showMessage(errorTemplate, '.error__button');
 };
 
 export { showDataLoadError, showSuccessMessage, showErrorMessage };

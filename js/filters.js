@@ -18,9 +18,14 @@ let currentFilter = FilterId.DEFAULT;
 let photos = [];
 
 const getRandomPhotos = (photosArray) => {
-  const shuffled = [...photosArray].sort(() => Math.random() - 0.5);
+  const shuffled = [...photosArray];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
   return shuffled.slice(0, RANDOM_PHOTOS_COUNT);
 };
+
 
 const getDiscussedPhotos = (photosArray) =>
   [...photosArray].sort((a, b) => b.comments.length - a.comments.length);

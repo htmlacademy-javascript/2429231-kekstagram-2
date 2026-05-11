@@ -20,7 +20,7 @@ const SubmitButtonText = {
 
 const bodyNode = document.body;
 const uploadFormNode = document.querySelector('.img-upload__form');
-const uploadFileControl = uploadFormNode.querySelector('#upload-file');
+const uploadFileControlNode = uploadFormNode.querySelector('#upload-file');
 const uploadOverlayNode = uploadFormNode.querySelector('.img-upload__overlay');
 const uploadCancelButtonNode = uploadFormNode.querySelector('#upload-cancel');
 const hashtagsInputNode = uploadFormNode.querySelector('.text__hashtags');
@@ -62,8 +62,7 @@ const resetPreview = () => {
 };
 
 const resetUploadPhotoForm = () => {
-  uploadFormNode.reset();
-  uploadFileControl.value = '';
+  uploadFileControlNode.value = '';
   resetFormFields();
   resetPreview();
 };
@@ -98,7 +97,7 @@ const closeUploadPhotoForm = () => {
 };
 
 const onUploadFileControlChange = () => {
-  const file = uploadFileControl.files[0];
+  const file = uploadFileControlNode.files[0];
 
   if (!file) {
     return;
@@ -151,11 +150,6 @@ const onUploadFormSubmit = (evt) => {
   }
 };
 
-const onUploadFormReset = (evt) => {
-  evt.preventDefault();
-  closeUploadPhotoForm();
-};
-
 pristine.addValidator(
   hashtagsInputNode,
   hasValidHashtagFormat,
@@ -187,10 +181,9 @@ pristine.addValidator(
 );
 
 const initUploadPhotoForm = () => {
-  uploadFileControl.addEventListener('change', onUploadFileControlChange);
+  uploadFileControlNode.addEventListener('change', onUploadFileControlChange);
   uploadCancelButtonNode.addEventListener('click', onUploadCancelButtonClick);
   uploadFormNode.addEventListener('submit', onUploadFormSubmit);
-  uploadFormNode.addEventListener('reset', onUploadFormReset);
   hashtagsInputNode.addEventListener('keydown', stopEscapePropagation);
   descriptionInputNode.addEventListener('keydown', stopEscapePropagation);
 };

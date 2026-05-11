@@ -59,14 +59,14 @@ const renderComments = (currentPhotoComments) => {
   socialCommentsNode.innerHTML = '';
 
   commentsCountNode.classList.remove('hidden');
+  commentsLoaderNode.removeEventListener('click', renderNextComments);
+
   if (state.comments.length > COUNT_STEP) {
     commentsLoaderNode.classList.remove('hidden');
+    commentsLoaderNode.addEventListener('click', renderNextComments);
   } else {
     commentsLoaderNode.classList.add('hidden');
   }
-
-  commentsLoaderNode.removeEventListener('click', renderNextComments);
-  commentsLoaderNode.addEventListener('click', renderNextComments);
 
   renderNextComments();
 };

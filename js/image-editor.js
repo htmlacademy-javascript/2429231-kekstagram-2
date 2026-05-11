@@ -121,7 +121,9 @@ const onEffectsListChange = (evt) => {
     return;
   }
 
-  updateSliderOptions(evt.target.value);
+  const effectName = evt.target.value;
+  updateSliderOptions(effectName);
+  applyEffect(effectName, effectsConfig[effectName].start);
 };
 
 const onEffectLevelSliderUpdate = () => {

@@ -9,12 +9,12 @@ const bigPictureNode = document.querySelector('.big-picture');
 const socialCommentsNode = bigPictureNode.querySelector('.social__comments');
 const commentsShownCountNode = bigPictureNode.querySelector('.social__comment-shown-count');
 const commentsTotalCountNode = bigPictureNode.querySelector('.social__comment-total-count');
-const socialCommentTemplate = socialCommentsNode.querySelector('.social__comment');
+const socialCommentTemplateNode = socialCommentsNode.querySelector('.social__comment');
 const commentsCountNode = bigPictureNode.querySelector('.social__comment-count');
 const commentsLoaderNode = bigPictureNode.querySelector('.social__comments-loader');
 
 const createComment = ({ avatar, name, message}) => {
-  const socialCommentNode = socialCommentTemplate.cloneNode(true);
+  const socialCommentNode = socialCommentTemplateNode.cloneNode(true);
   const socialPictureNode = socialCommentNode.querySelector('.social__picture');
 
   socialPictureNode.src = avatar;

@@ -1,14 +1,14 @@
 import { openBigPicture } from './full-size-picture.js';
 
 const picturesNode = document.querySelector('.pictures');
-const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
+const pictureTemplateNode = document.querySelector('#picture').content.querySelector('.picture');
 
-if (!picturesNode || !pictureTemplate) {
+if (!picturesNode || !pictureTemplateNode) {
   throw new Error('Не найден контейнер .pictures или шаблон #picture');
 }
 
 const createPicture = ({id, url, description, comments, likes }) => {
-  const pictureNode = pictureTemplate.cloneNode(true);
+  const pictureNode = pictureTemplateNode.cloneNode(true);
 
   pictureNode.dataset.pictureId = id;
   const imageNode = pictureNode.querySelector('.picture__img');

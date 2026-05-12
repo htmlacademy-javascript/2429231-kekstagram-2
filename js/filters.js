@@ -11,37 +11,41 @@ const FilterId = {
   DISCUSSED: 'filter-discussed',
 };
 
-const filtersSection = document.querySelector('.img-filters');
-const filtersForm = document.querySelector('.img-filters__form');
+const filtersSectionNode = document.querySelector('.img-filters');
+const filtersFormNode = document.querySelector('.img-filters__form');
 
 let currentFilter = FilterId.DEFAULT;
-let photos = [];
+let loadedPhotos = [];
 
-const getRandomPhotos = (photosArray) => {
-  const shuffled = [...photosArray].sort(() => Math.random() - 0.5);
+const getRandomPhotos = (photos) => {
+  const shuffled = [...photos];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
   return shuffled.slice(0, RANDOM_PHOTOS_COUNT);
 };
 
-const getDiscussedPhotos = (photosArray) =>
-  [...photosArray].sort((a, b) => b.comments.length - a.comments.length);
+const getDiscussedPhotos = (photos) =>
+  [...photos].sort((a, b) => b.comments.length - a.comments.length);
 
 const filterPhotos = () => {
   switch (currentFilter) {
     case FilterId.RANDOM:
-      return getRandomPhotos(photos);
+      return getRandomPhotos(loadedPhotos);
     case FilterId.DISCUSSED:
-      return getDiscussedPhotos(photos);
+      return getDiscussedPhotos(loadedPhotos);
     default:
-      return [...photos];
+      return [...loadedPhotos];
   }
 };
 
-const updateActiveButton = (clickedButton) => {
-  const activeButton = filtersForm.querySelector(`.${ACTIVE_BUTTON_CLASS}`);
-  if (activeButton) {
-    activeButton.classList.remove(ACTIVE_BUTTON_CLASS);
+const updateActiveButton = (clickedButtonNode) => {
+  const activeButtonNode = filtersFormNode.querySelector(`.${ACTIVE_BUTTON_CLASS}`);
+  if (activeButtonNode) {
+    activeButtonNode.classList.remove(ACTIVE_BUTTON_CLASS);
   }
-  clickedButton.classList.add(ACTIVE_BUTTON_CLASS);
+  clickedButtonNode.classList.add(ACTIVE_BUTTON_CLASS);
 };
 
 const debouncedRenderThumbnails = debounce(
@@ -66,13 +70,13 @@ const onFilterButtonClick = (evt) => {
 };
 
 const showFilters = () => {
-  filtersSection.classList.remove('img-filters--inactive');
+  filtersSectionNode.classList.remove('img-filters--inactive');
 };
 
-const initFilters = (loadedPhotos) => {
-  photos = loadedPhotos;
+const initFilters = (photos) => {
+  loadedPhotos = photos;
   showFilters();
-  filtersForm.addEventListener('click', onFilterButtonClick);
+  filtersFormNode.addEventListener('click', onFilterButtonClick);
 };
 
 export { initFilters };

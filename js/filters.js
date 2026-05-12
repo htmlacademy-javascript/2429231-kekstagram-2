@@ -18,12 +18,12 @@ let currentFilter = FilterId.DEFAULT;
 let loadedPhotos = [];
 
 const getRandomPhotos = (photos) => {
-  const shuffled = [...photos];
-  for (let i = shuffled.length - 1; i > 0; i--) {
+  const shuffledPhotos = [...photos];
+  for (let i = shuffledPhotos.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    [shuffledPhotos[i], shuffledPhotos[j]] = [shuffledPhotos[j], shuffledPhotos[i]];
   }
-  return shuffled.slice(0, RANDOM_PHOTOS_COUNT);
+  return shuffledPhotos.slice(0, RANDOM_PHOTOS_COUNT);
 };
 
 const getDiscussedPhotos = (photos) =>

@@ -67,7 +67,7 @@ const resetUploadPhotoForm = () => {
   resetPreview();
 };
 
-const stopEscapePropagation = (evt) => {
+const onTextInputKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.stopPropagation();
   }
@@ -184,8 +184,8 @@ const initUploadPhotoForm = () => {
   uploadFileControlNode.addEventListener('change', onUploadFileControlChange);
   uploadCancelButtonNode.addEventListener('click', onUploadCancelButtonClick);
   uploadFormNode.addEventListener('submit', onUploadFormSubmit);
-  hashtagsInputNode.addEventListener('keydown', stopEscapePropagation);
-  descriptionInputNode.addEventListener('keydown', stopEscapePropagation);
+  hashtagsInputNode.addEventListener('keydown', onTextInputKeydown);
+  descriptionInputNode.addEventListener('keydown', onTextInputKeydown);
 };
 
 export { initUploadPhotoForm };

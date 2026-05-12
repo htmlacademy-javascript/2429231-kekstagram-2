@@ -45,12 +45,16 @@ const renderNextComments = () => {
   }
 };
 
+const onCommentsLoaderClick = () => {
+  renderNextComments();
+};
+
 const clearComments = () => {
   state.currentCount = 0;
   state.comments = [];
   socialCommentsNode.innerHTML = '';
   commentsLoaderNode.classList.add('hidden');
-  commentsLoaderNode.removeEventListener('click', renderNextComments);
+  commentsLoaderNode.removeEventListener('click', onCommentsLoaderClick);
 };
 
 const renderComments = (currentPhotoComments) => {
@@ -59,11 +63,11 @@ const renderComments = (currentPhotoComments) => {
   socialCommentsNode.innerHTML = '';
 
   commentsCountNode.classList.remove('hidden');
-  commentsLoaderNode.removeEventListener('click', renderNextComments);
+  commentsLoaderNode.removeEventListener('click', onCommentsLoaderClick);
 
   if (state.comments.length > COUNT_STEP) {
     commentsLoaderNode.classList.remove('hidden');
-    commentsLoaderNode.addEventListener('click', renderNextComments);
+    commentsLoaderNode.addEventListener('click', onCommentsLoaderClick);
   } else {
     commentsLoaderNode.classList.add('hidden');
   }
